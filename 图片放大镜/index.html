@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0}
+        .photo{
+            width: 500px;
+            height: 700px;
+            position: relative;
+        }
+        .photo img{
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+        .photo .detail{
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            top: 10%;
+            left: 110%;
+            background-image: url("image/05.jpg");
+            border: 1px solid #000;
+            background-repeat: no-repeat;
+            background-size: 1500px 2100px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="photo">
+        <img src="image/05.jpg" alt="">
+        <div class="detail"></div>
+    </div>
+
+    <script>
+        var img = document.querySelector(".photo img");
+        var detail = document.querySelector(".photo .detail");
+
+        img.addEventListener("mousemove", handler);
+        img.addEventListener("mouseleave", handler);
+
+        function handler(even) {
+            if(even.type == "mousemove"){
+//                鼠标指针位于放大框中间位置
+                var posX = (img.offsetLeft - even.clientX)*3 + 150;
+                var posY = (img.offsetTop - even.clientY)*3 + 150;
+//                防止越界
+                posX = posX < 0?posX:0;
+                posX = posX > -1200?posX:-1200;
+                posY = posY < 0?posY:0;
+                posY = posY > -1800?posY:-1800;
+
+                detail.style.display = "block";
+                detail.style.backgroundPosition = posX + "px " + posY + "px";
+            }else if(even.type == "mouseleave"){
+                detail.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

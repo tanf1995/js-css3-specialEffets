@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .menu{
+            list-style: none;
+            margin: 10px 200px;
+        }
+        .menu li{
+            width: 40px;
+            height: 40px;
+            position: relative;
+            transition: width 0.4s ease;
+        }
+        .menu li a{
+            position: absolute;
+            display: block;
+            width: 160px;
+            height: 40px;
+            line-height: 40px;
+            text-decoration: none;
+            text-align: center;
+            color: #000;
+            left: 40px;
+        }
+        .menu li:not(:last-child) a{
+            border-bottom: 1px solid #ccc;
+        }
+        .menu li:hover{
+            width: 200px;
+        }
+        .menu li a:hover{
+            color: #fff;
+        }
+        .menu li:nth-child(1){
+            background: aquamarine url(image/icoa1.png) no-repeat 6px center;
+        }
+        .menu li:nth-child(2){
+            background: #CE5043 url(image/icoa2.png) no-repeat 6px center;
+        }
+        .menu li:nth-child(3){
+            background: orange url(image/icoa3.png) no-repeat 6px center;
+        }
+        .menu li:nth-child(4){
+            background: skyblue url(image/icoa4.png) no-repeat 6px center;
+        }
+        .menu li:nth-child(5){
+            background: #5E5CA6 url(image/icoa5.png) no-repeat 6px center;
+        }
+        .menu li:nth-child(6){
+            background: darkolivegreen url(image/icoa6.png) no-repeat 6px center;
+        }
+    </style>
+</head>
+<body>
+    <ul class="menu">
+        <li>
+            <a href="javascript:;">首页</a>
+        </li>
+        <li>
+            <a href="javascript:;">影视</a>
+        </li>
+        <li>
+            <a href="javascript:;">音乐</a>
+        </li>
+        <li>
+            <a href="javascript:;">图书</a>
+        </li>
+        <li>
+            <a href="javascript:;">记事</a>
+        </li>
+        <li>
+            <a href="javascript:;">设备</a>
+        </li>
+    </ul>
+</body>
+</html>

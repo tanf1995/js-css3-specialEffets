@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0}
+        .photos{
+            list-style: none;
+            width: 1020px;
+            margin: 0 auto;
+        }
+        .photos li{
+            float: left;
+            width: 300px;
+            height: 200px;
+            box-sizing: border-box;
+            margin: 10px 20px;
+            box-shadow: 0 0 10px #000;
+            border-radius: 10px;
+        }
+        .photos li img{
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        .detail{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            visibility: hidden;
+            transform: scale(0.1);
+            transition: all 0.3s linear;
+        }
+        .detail .content{
+            position: relative;
+            width: 1100px;
+            height: 600px;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .detail .content img{
+            width: 900px;
+            height: 100%;
+            margin-left: 100px;
+        }
+        .detail .content .btn{
+            display: block;
+            position: absolute;
+            font-size: 90px;
+            color: #fff;
+            text-decoration: none;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .detail .content .prev{
+            left: 0;
+        }
+        .detail .content .next{
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <ul class="photos">
+        <li><a href="javascript:;"><img src="image/1.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="image/2.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="image/3.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="image/4.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="image/5.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="image/6.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="image/7.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="image/8.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="image/9.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="image/10.jpg" alt=""></a></li>
+    </ul>
+    <div class="detail">
+        <div class="content">
+            <img src="" alt="">
+            <a href="javascript:;" class="prev btn"><</a>
+            <a href="javascript:;" class="next btn">></a>
+        </div>
+    </div>
+
+    <script>
+        var imgs = document.querySelectorAll(".photos li img");
+        var detail = document.querySelector(".detail");
+        var contentImg = detail.querySelector("img");
+        var prevBtn = detail.querySelector(".prev");
+        var nextBtn = detail.querySelector(".next");
+        var index;
+
+        Array.prototype.map.call(imgs, function (item, index, arr) {
+            item.addEventListener("click", handleImg);
+        });
+        detail.addEventListener("click", handleDetail);
+        contentImg.addEventListener("click", handleDetail);
+        prevBtn.addEventListener("click", handleDetail);
+        nextBtn.addEventListener("click", handleDetail);
+
+
+        function handleImg(even) {
+            detail.style.visibility = "visible";
+            detail.style.transform = "scale(1)";
+            index = Array.prototype.indexOf.call(imgs, even.target);
+            contentImg.setAttribute("src", even.target.getAttribute("src"));
+            document.body.style.overflow = "hidden";
+        }
+        function handleDetail(even) {
+            if(even.target == contentImg){
+                even.stopPropagation();
+                return;
+            }else if(even.target == prevBtn){
+                even.stopPropagation();
+                index = index > 0?index-1:imgs.length-1;
+                contentImg.setAttribute("src", imgs[index].getAttribute("src"));
+                return;
+            }else if(even.target == nextBtn){
+                even.stopPropagation();
+                index = index < imgs.length-1?index+1:0;
+                contentImg.setAttribute("src", imgs[index].getAttribute("src"));
+                return;
+            }
+            detail.style.visibility = "hidden";
+            detail.style.transform = "scale(0.1)";
+            document.body.style.overflow = "auto";
+        }
+    </script>
+</body>
+</html>

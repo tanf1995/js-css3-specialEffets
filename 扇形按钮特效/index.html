@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0}
+        .btns{
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+        }
+        .btns a{
+            border-radius: 50%;
+            display: block;
+            overflow: hidden;
+        }
+        .btns > a{
+            position: relative;
+            z-index: 1000;
+            transition: all 0.6s ease;
+        }
+        .btns .menu a{
+            position: absolute;
+            top: 0;
+            right: 0;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="btns">
+        <a href="javascript:;" data-status="close"><img src="image/home.png" alt=""></a>
+        <div class="menu">
+            <a href="javascript:;"><img src="image/clos.png" alt=""></a>
+            <a href="javascript:;"><img src="image/full.png" alt=""></a>
+            <a href="javascript:;"><img src="image/open.png" alt=""></a>
+            <a href="javascript:;"><img src="image/prev.png" alt=""></a>
+            <a href="javascript:;"><img src="image/refresh.png" alt=""></a>
+        </div>
+    </div>
+
+    <script>
+        var homeBtn = document.querySelector(".btns > a");
+        var menuBtns = document.querySelectorAll(".btns .menu a");
+
+        homeBtn.addEventListener("click", handler);
+
+        function handler(even) {
+            if(even.currentTarget.getAttribute("data-status") == "open"){
+                menuBtns[0].style.top = 0;
+                menuBtns[0].style.right = 0;
+                menuBtns[0].style.transform = "rotate(-360deg)";
+                menuBtns[1].style.top = 0;
+                menuBtns[1].style.right = 0;
+                menuBtns[1].style.transform = "rotate(-360deg)";
+                menuBtns[2].style.top = 0;
+                menuBtns[2].style.right = 0;
+                menuBtns[2].style.transform = "rotate(-360deg)";
+                menuBtns[3].style.top = 0;
+                menuBtns[3].style.right = 0;
+                menuBtns[3].style.transform = "rotate(-360deg)";
+                menuBtns[4].style.top = 0;
+                menuBtns[4].style.right = 0;
+                menuBtns[4].style.transform = "rotate(-360deg)";
+                even.currentTarget.style.transform = "rotate(-1440deg)";
+                even.currentTarget.setAttribute("data-status", "close");
+            }else if(even.currentTarget.getAttribute("data-status") == "close"){
+                menuBtns[0].style.top = "-200px";
+                menuBtns[0].style.right = 0;
+                menuBtns[0].style.transform = "rotate(360deg)";
+                menuBtns[1].style.top = "-184px";
+                menuBtns[1].style.right = "-76px";
+                menuBtns[1].style.transform = "rotate(360deg)";
+                menuBtns[2].style.top = "-140px";
+                menuBtns[2].style.right = "-140px";
+                menuBtns[2].style.transform = "rotate(360deg)";
+                menuBtns[3].style.top = "-76px";
+                menuBtns[3].style.right = "-184px";
+                menuBtns[3].style.transform = "rotate(360deg)";
+                menuBtns[4].style.top = 0;
+                menuBtns[4].style.right = "-200px";
+                menuBtns[4].style.transform = "rotate(360deg)";
+                even.currentTarget.style.transform = "rotate(1440deg)";
+                even.currentTarget.setAttribute("data-status", "open");
+            }
+        }
+    </script>
+</body>
+</html>
