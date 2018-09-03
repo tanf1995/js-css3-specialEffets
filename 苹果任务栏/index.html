@@ -5,62 +5,52 @@
     <title>Title</title>
     <style>
         *{margin: 0;padding: 0}
-        body{
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
         .menu{
-            list-style: none;
-            position: absolute;
+            position: fixed;
+            width: 100%;
             bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            text-align: center;
         }
-        .menu li{
-            float: left;
-        }
-        .menu li a{
-            display: block;
+        .menu img{
             width: 64px;
             height: 64px;
-        }
-        .menu li a img{
-            width: 100%;
-            height: 100%;
         }
     </style>
 </head>
 <body>
-    <ul class="menu">
-        <li><a href="javascript:;"><img src="image/1.png" alt=""></a></li>
-        <li><a href="javascript:;"><img src="image/2.png" alt=""></a></li>
-        <li><a href="javascript:;"><img src="image/3.png" alt=""></a></li>
-        <li><a href="javascript:;"><img src="image/4.png" alt=""></a></li>
-        <li><a href="javascript:;"><img src="image/5.png" alt=""></a></li>
-        <li><a href="javascript:;"><img src="image/6.png" alt=""></a></li>
-        <li><a href="javascript:;"><img src="image/7.png" alt=""></a></li>
-        <li><a href="javascript:;"><img src="image/8.png" alt=""></a></li>
-    </ul>
+    <div class="menu">
+        <img src="image/1.png" alt="">
+        <img src="image/2.png" alt="">
+        <img src="image/3.png" alt="">
+        <img src="image/4.png" alt="">
+        <img src="image/5.png" alt="">
+        <img src="image/6.png" alt="">
+        <img src="image/7.png" alt="">
+        <img src="image/8.png" alt="">
+    </div>
 
     <script>
         var menu = document.querySelector(".menu");
-        var menuOptions = menu.querySelectorAll("a");
-        var menuOffLef = menu.offsetLeft;
-        var menuOffTop = menu.offsetTop;
+        var menuOptions = menu.querySelectorAll("img");
+        var imgWidth = 64,
+            imgHeight = 64;
 
-        Array.prototype.map.call(menuOptions, function (item, index, arr) {
-            item.addEventListener("mousemove", function () {
-                handler(index);
-            });
-        });
+        window.addEventListener("mousemove", handler);
 
-        function handler(even, index) {
-            var mouseToHeartX, mouseToHeartY;
+        function handler(ev) {
+            Array.prototype.map.call(menuOptions, function (item, index, arr) {
+                var oX = parseInt(item.offsetLeft) + parseInt(item.offsetWidth/2);
+                var oY = parseInt(menu.offsetTop) + parseInt(item.offsetHeight/2);
+                var a = ev.clientX>oX?ev.clientX-oX:oX-ev.clientX;
+                var b = ev.clientY>oY?ev.clientY-oY:oY-ev.clientY;
 
-            mouseToHeartX = menuOffLef + even.clientX
+                var distance = Math.sqrt(a*a + b*b);
+                if(index ==1 ){
+                    console.log(distance);
+                }
+                item.style.width = distance>imgWidth?imgWidth:(2*imgWidth - distance) + "px";
+                item.style.height = distance>imgHeight?imgHeight:(2*imgHeight - distance) + "px";
+            })
         }
     </script>
 </body>
