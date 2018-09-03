@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0}
+        ul{
+            list-style: none;
+        }
+        .menu{
+            width: 250px;
+            background-color: #333;
+            margin: 50px 100px;
+            color: #fff;
+            font-weight: bold;
+        }
+        .menu li{
+            border-top: 1px solid #000;
+        }
+        .menu > .title{
+            height: 80px;
+            line-height: 80px;
+            font-size: 26px;
+            text-align: center;
+        }
+        .menu ul > li > .title{
+            height: 60px;
+            line-height: 60px;
+            padding-left: 50px;
+            background-color: #333;
+        }
+        .menu ul > li > ul > li > .title{
+            height: 40px;
+            line-height: 40px;
+            background-color: #555;
+            padding-left: 70px;
+        }
+        .menu ul .title{
+            cursor: pointer;
+        }
+        .menu ul .title > span{
+            background-repeat: no-repeat;
+            background-position: 0 center;
+            padding-right: 26px;
+        }
+        .menu > ul ul{
+            height: 0;
+            overflow: hidden;
+        }
+        .menu ul, .menu .title{
+            position: relative;
+        }
+        .menu .title{
+            z-index: 10000;
+        }
+        .menu > ul{
+            z-index: 1000;
+        }
+        .menu > ul > li > ul{
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <div class="title">目录</div>
+        <ul>
+            <li>
+                <div class="title">
+                    <span style="background-image: url(image/text_block.png)"></span>核心
+                </div>
+                <ul data-status="close">
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/folder.png)"></span>网站栏目管理
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/folder.png)"></span>我发布的文档
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/html.png)"></span>内容回收站
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/html.png)"></span>内容回收站2
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/html.png)"></span>内容回收站3
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div class="title"><span style="background-image: url(image/pen.png)"></span>模板管理</div>
+                <ul data-status="close">
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/folder.png)"></span>网站栏目管理
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/folder.png)"></span>所有档案列表
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/html.png)"></span>等审核的档案
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div class="title"><span style="background-image: url(image/reload.png)"></span>生成</div>
+                <ul data-status="close">
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/folder.png)"></span>网站栏目管理
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/folder.png)"></span>所有档案列表
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/html.png)"></span>等审核的档案
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div class="title"><span style="background-image: url(image/setting.png)"></span>栏目文件</div>
+                <ul data-status="close">
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/folder.png)"></span>网站栏目管理
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/folder.png)"></span>我发布的文档
+                        </div>
+                    </li>
+                    <li>
+                        <div class="title">
+                            <span style="background-image: url(image/html.png)"></span>内容回收站
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        var menu = document.querySelector(".menu > ul");
+        var uls = document.querySelectorAll(".menu > ul ul");
+
+        menu.addEventListener("click", handler);
+
+        function handler(even) {
+            if(even.target.nextElementSibling.getAttribute("data-status") == "close"){
+                Array.prototype.map.call(uls, function (item, index, arr) {
+                    item.setAttribute("data-status", "close");
+                    slideDown(item);
+                })
+                slideUp(even.target.nextElementSibling);
+                even.target.nextElementSibling.setAttribute("data-status", "open")
+            }else{
+                slideDown(even.target.nextElementSibling);
+                even.target.nextElementSibling.setAttribute("data-status", "close")
+            }
+        }
+        function slideUp(ele) {
+            var realHeight;
+            var timer = null;
+
+            ele.style.height = "auto";
+            realHeight = ele.offsetHeight;
+            ele.style.height = "0";
+            timer = setInterval(function () {
+                ele.style.height = parseInt(ele.style.height) + realHeight/50 + "px";
+                if(parseInt(ele.style.height) >= realHeight){
+                    ele.style.height = realHeight + "px";
+                    clearInterval(timer);
+                }
+            }, 10)
+        }
+        function slideDown(ele) {
+            var realHeight;
+            var timer = null;
+
+            realHeight = parseInt(ele.style.height);
+            timer = setInterval(function () {
+                ele.style.height = parseInt(ele.style.height) - realHeight/50 + "px";
+                if(parseInt(ele.style.height) <= 0){
+                    ele.style.height = "0";
+                    clearInterval(timer);
+                }
+            }, 10)
+        }
+    </script>
+</body>
+</html>
