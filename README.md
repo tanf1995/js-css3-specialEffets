@@ -23,5 +23,7 @@
 >+ [苹果任务栏](https://tanf1995.github.io/js-css3-specialEffets/苹果任务栏/index.html)
 >
 >+ [伸缩二级菜单](https://tanf1995.github.io/js-css3-specialEffets/伸缩二级菜单/index.html)
+>
+>+ [Canvas动态时钟](https://tanf1995.github.io/js-css3-specialEffets/Canvas动态时钟/index.html)
 
 ![haha](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1535988754564&di=a4f329fee195e3c3230cb94be0859dbd&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201601%2F15%2F20160115223205_CWRdv.thumb.700_0.jpeg)

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="drawing" width="1000" height="700" style="border: 1px solid #000;"></canvas>
+
+<script>
+    var drawing = document.getElementById("drawing");
+
+    if(drawing.getContext){
+        var context = drawing.getContext("2d");
+
+        context.strokeStyle = "#000";
+        context.font = "bold 18px Arial";
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.translate(270, 270);  // 移动原点
+        showClock(context);
+        setInterval(function () {
+            context.clearRect(-270, -270, 1000, 700);
+            showClock(context);
+        }, 1000)
+    }
+    function showClock(context) {
+        context.beginPath();
+        context.arc(0, 0, 258, 0, 2*Math.PI); // 外圆半径258
+        context.moveTo(250, 0);
+        context.arc(0, 0, 250, 0, 2*Math.PI);  // 内圆半径250
+        drawMoment(context);
+        computePointer(context, 0);
+        computePointer(context, 1);
+        computePointer(context, 2);
+
+        context.stroke();
+    }
+    function drawMoment(context) {
+        var posX, posY, markEndX, markEndY;
+        for(var i=0;i<12;i++){
+            posX = Math.sin((i*360*Math.PI)/(12*180))*230;  // 时刻文字距圆心距离230
+            posY = Math.cos((i*360*Math.PI)/(12*180))*-230;
+            if(i == 0){
+                context.fillText("12", posX, posY);
+            }else{
+                context.fillText(i.toString(), posX, posY);
+            }
+        }
+        for(var j=0;j<60;j++){
+            posX = Math.sin((j*360*Math.PI)/(60*180))*250;
+            posY = Math.cos((j*360*Math.PI)/(60*180))*-250;
+            markEndX = Math.cos((j*360/60+270)*Math.PI/180)*(250-4);  // 普通时刻标记线长4
+            markEndY = Math.sin((j*360/60+270)*Math.PI/180)*(250-4);
+            if(parseInt(j/5) == j/5){
+                markEndX = Math.cos((j*360/60+270)*Math.PI/180)*(250-9);  // 整点时刻标记线长9
+                markEndY = Math.sin((j*360/60+270)*Math.PI/180)*(250-9);
+            }
+            context.moveTo(posX, posY);
+            context.lineTo(markEndX, markEndY);
+        }
+    }
+    function computePointer(context, mode) {
+        var myDate = new Date();
+        var hourPointerLen = 150,  // 时针长
+            minutePointerLen = 180,  // 分针长
+            secondPointerLen = 220;  // 秒针长
+        var hourDeg = myDate.getHours()*360/12 + 270,  // 以3点方向为0的方位角，下同
+            minuteDeg = myDate.getMinutes()*360/60 + 270,
+            secondDeg = myDate.getSeconds()*360/60 + 270;
+
+        if(mode == 0){
+            // 时针
+            drawPointer(context, hourDeg, hourPointerLen);
+        }else if(mode == 1){
+            // 分针
+            drawPointer(context, minuteDeg, minutePointerLen);
+        }else if(mode == 2){
+            // 秒针
+            drawPointer(context, secondDeg, secondPointerLen);
+        }
+    }
+    function drawPointer(context, age, len) {
+        var posX = Math.cos(age*Math.PI/180)*len;
+        var posY = Math.sin(age*Math.PI/180)*len;
+        var mark1X = posX + Math.cos((age-135)*Math.PI/180)*10; // 以3点方向为0的方位角，下同
+        var mark1Y = posY + Math.sin((age-135)*Math.PI/180)*10; // 指针箭头部分长10
+        var mark2X = posX + Math.cos((age-225)*Math.PI/180)*10;
+        var mark2Y = posY + Math.sin((age-225)*Math.PI/180)*10;
+
+        context.moveTo(0, 0);
+        context.lineTo(posX, posY);
+        context.lineTo(mark1X, mark1Y);
+        context.moveTo(posX, posY);
+        context.lineTo(mark2X, mark2Y);
+    }
+</script>
+</body>
+</html>
