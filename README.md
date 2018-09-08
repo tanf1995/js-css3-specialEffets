@@ -10,7 +10,7 @@
 >
 >+ [百叶窗效果](https://tanf1995.github.io/js-css3-specialEffets/百叶窗效果/index.html)
 >
->+ [瀑布布局](https://tanf1995.github.io/js-css3-specialEffets/瀑布布局/index.html)
+>+ [瀑布布局](https://tanf1995.github.io/js-css3-specialEffets/瀑布布局/waterfall.html)
 >
 >+ [扇形按钮特效](https://tanf1995.github.io/js-css3-specialEffets/扇形按钮特效/index.html)
 >
