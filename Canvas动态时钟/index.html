@@ -70,7 +70,7 @@
         // 以3点方向为0的方位角，下同
         var secondDeg = myDate.getSeconds()*360/60 + 270,
             minuteDeg = myDate.getMinutes()*360/60 + (secondDeg-270)/60 + 270,
-            hourDeg = myDate.getHours()*360/12 + (minuteDeg-270)/60 + 270;
+            hourDeg = myDate.getHours()*360/12 + (minuteDeg-270)/12 + 270;
 
         if(mode === 0){
             // 时针
